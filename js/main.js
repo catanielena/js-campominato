@@ -14,7 +14,12 @@ function createMinefield(cellNumb, getFieldId, cellClass, addClassToCell) {
         }  
     }   
 }
-    
+// *
+// * La funzione restituisce un numero randomico 
+// *
+function getRndInteger(min, max) {
+    return Math.floor(Math.random() * (max - min + 1) ) + min;
+}
 
 // UserInput
 var userNumb = parseInt(prompt(`Definisci il numero di celle per riga di cui sarà composto il campo da gioco 
@@ -39,8 +44,15 @@ var cellIndex = [];
 for(let i=0; i<cells; i++) {
     cellIndex.push(i +1);
 }
-// mines
-var mines = [1, 4, 5];
+// bombs
+var bombs = [];
+for(let i=0; i<16; i++) {
+    do {
+        var bombN = getRndInteger(1, 100);
+    } while (bombs.includes(bombN));
+    bombs.push(bombN);
+}
+console.log("bombs", bombs);
 // *
 // *Campo minato
 // *
@@ -56,13 +68,11 @@ var clicked = [];
 for(let i=0; i< celle.length; i++) {
     clicked.push(0);
 }
-console.log(clicked);
 for (let i=0; i< celle.length; i++) {
     celle[i].addEventListener("click",
         function(event) {
-            if(mines.includes(i)) {
+            if(bombs.includes(i)) {
                 celle[i].classList.add(addClassYellow);
-                
             } else {
                 celle[i].classList.add(addClassToCell);
             }
@@ -75,13 +85,9 @@ for (let i=0; i< celle.length; i++) {
             } else {
                 score++;
             }
-        
-            console.log("clicked", clicked);
             console.log("score", score);
         }
         );
-    }
+}
 
-console.log(clicked);
-console.log(score);
 
