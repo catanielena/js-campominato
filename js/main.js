@@ -28,8 +28,12 @@ while (userNumb<1 || userNumb>10 || isNaN(userNumb)) {
 var fieldId = document.getElementById("minefield");
 // cellClass
 var cellClass = "cell";
+// cells
+var cells = userNumb * userNumb;
 //  class added
 var addClassToCell = "bg--red";
+//  class added
+var addClassYellow = "bg--yellow";
 //cellIndex
 var cellIndex = [];
 for(let i=0; i<cells; i++) {
@@ -37,20 +41,46 @@ for(let i=0; i<cells; i++) {
 }
 // mines
 var mines = [1, 4, 5];
-
-// Campo minato
+// *
+// *Campo minato
+// *
 createMinefield(userNumb, fieldId, cellClass, addClassToCell);
-
-// evento click
+// *
+// * evento click
+// *
 celle = document.getElementsByClassName("cell-n");
+// score
+var score = 0;
+// clicked
+var clicked = [];
+for(let i=0; i< celle.length; i++) {
+    clicked.push(0);
+}
+console.log(clicked);
 for (let i=0; i< celle.length; i++) {
     celle[i].addEventListener("click",
         function(event) {
             if(mines.includes(i)) {
-                celle[i].classList.add(addClassToCell);
+                celle[i].classList.add(addClassYellow);
+                
             } else {
-                celle[i].style.backgroundColor = "yellow";
+                celle[i].classList.add(addClassToCell);
             }
+
+            // cliccando 2 volte sulla cella il punteggio non viene incrementato
+            clicked[i]++;
+            if(clicked[i]==2) {
+                score = score;
+            } else {
+                score++;
+            }
+        
+            console.log("clicked", clicked);
+            console.log("score", score);
         }
-    );
-}
+        );
+    }
+
+console.log(clicked);
+console.log(score);
+
