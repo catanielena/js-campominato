@@ -9,7 +9,6 @@ function createMinefield(cellNumb, getFieldId, cellClass, addClassToCell) {
         getFieldId.innerHTML += `<div class="row"></div>`;
         for (let j = 1; j<= cellNumb; j++) {        
             document.getElementsByClassName("row")[i].innerHTML += `<div class=${cellClass}><span class="cell-n">${n}</span></div>`;
-            // cellIndex.push(n);
             n++;
         }  
     }   
@@ -48,7 +47,7 @@ for(let i=0; i<cells; i++) {
 var bombs = [];
 for(let i=0; i<16; i++) {
     do {
-        var bombN = getRndInteger(1, 100);
+        var bombN = getRndInteger(1, cells);
     } while (bombs.includes(bombN));
     bombs.push(bombN);
 }
@@ -65,14 +64,35 @@ celle = document.getElementsByClassName("cell-n");
 var score = 0;
 // clicked
 var clicked = [];
-for(let i=0; i< celle.length; i++) {
+for(let i=0; i< cells; i++) {
     clicked.push(0);
 }
-for (let i=0; i< celle.length; i++) {
+for (let i=0; i< cells; i++) {
     celle[i].addEventListener("click",
         function(event) {
             if(bombs.includes(i)) {
-                celle[i].classList.add(addClassYellow);
+                // -
+                // -
+                // -
+                // -
+                if(confirm("Hai perso! Ritenta")){
+                    window.location.reload();  
+                }
+                // -
+                // -
+                // -
+                // -
+            } else if (score == (cells - 16 - 1)) {
+                                // -
+                // -
+                // -
+                // -
+                celle[i].classList.add(addClassToCell);
+                alert("Hai vinto")
+                // -
+                // -
+                // -
+                // -
             } else {
                 celle[i].classList.add(addClassToCell);
             }
