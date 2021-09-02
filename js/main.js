@@ -69,8 +69,9 @@ for (let i=0; i< celle.length; i++) {
 
             // cliccando 2 volte sulla cella il punteggio non viene incrementato
             clicked[i]++;
-            if(clicked[i]==2) {
+            if(clicked[i]>=2) {
                 score = score;
+                alert("Attenzione non è possibile cliccare due volte sulla stessa cella")
             } else {
                 score++;
             }
