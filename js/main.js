@@ -21,19 +21,26 @@ function getRndInteger(min, max) {
 }
 
 // UserInput
-var userNumb = parseInt(prompt(`Definisci il numero di celle per riga di cui sarà composto il campo da gioco 
-(minimo 1, massimo 10)`));
+var difficulty = parseInt(prompt(`Indica il grado di difficoltà (0, 1, 2)`));
 // UserInput Control
-while (userNumb<1 || userNumb>10 || isNaN(userNumb)) {
-    userNumb = parseInt(prompt(`Errore! Definisci il numero di celle per riga di cui sarà composto il campo da gioco 
-(minimo 1, massimo 10)`));   
+while (difficulty<0 || difficulty>2 || isNaN(difficulty)) {
+    difficulty = parseInt(prompt(`Indica il grado di difficoltà (0, 1, 2)`)); 
 }
+var cellPerRow;
+if (difficulty == 0) {
+    cellPerRow = 10;
+} else if (difficulty == 1) {
+    cellPerRow = 9;
+} else {
+    cellPerRow = 5;
+}
+
 // fieldId
 var fieldId = document.getElementById("minefield");
 // cellClass
 var cellClass = "cell";
 // cells
-var cells = userNumb * userNumb;
+var cells = cellPerRow * cellPerRow;
 //  class added
 var addClassToCell = "bg--red";
 //  class added
@@ -55,7 +62,7 @@ console.log("bombs", bombs);
 // *
 // *Campo minato
 // *
-createMinefield(userNumb, fieldId, cellClass, addClassToCell);
+createMinefield(cellPerRow, fieldId, cellClass, addClassToCell);
 // *
 // * evento click
 // *
