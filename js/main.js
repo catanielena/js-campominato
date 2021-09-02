@@ -20,6 +20,7 @@ function getRndInteger(min, max) {
     return Math.floor(Math.random() * (max - min + 1) ) + min;
 }
 
+
 // UserInput
 var difficulty = parseInt(prompt(`Indica il grado di difficoltà (0, 1, 2)`));
 // UserInput Control
@@ -107,8 +108,9 @@ for (let i=0; i< cells; i++) {
             // cliccando 2 volte sulla cella il punteggio non viene incrementato
             clicked[i]++;
             if(clicked[i]>=2) {
-                score = score;
-                alert("Attenzione non è possibile cliccare due volte sulla stessa cella")
+                celle[i].disabled = true;
+                // score = score;
+                // alert("Attenzione non è possibile cliccare due volte sulla stessa cella");
             } else {
                 score++;
             }
@@ -116,5 +118,4 @@ for (let i=0; i< cells; i++) {
         }
         );
 }
-
 
