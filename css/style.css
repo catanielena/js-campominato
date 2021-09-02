@@ -1,0 +1,51 @@
+/* reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+/* common */
+.wrapper {
+    display: flex;
+    align-items: center;
+    height: 100vh;
+}
+
+/* field */
+#minefield {
+    display: flex;
+    width: 40%;
+    margin: auto;
+    flex-wrap: wrap;
+    background-color: green;
+}
+
+.row {
+    width: 100%;
+    display: flex;
+}
+
+.cell {
+    position: relative;
+    border: 1px solid;
+    flex-grow: 1;    
+}
+
+.cell::after {
+    content: "";
+    display: block;
+    padding-bottom: 100%;
+}
+
+.cell > span{
+    font-size: 1.5rem;
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+/* Add properties */
+.bg--red {
+    background-color: red;
+}
