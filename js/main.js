@@ -33,7 +33,7 @@ function getSelectValue() {
     } else if (selectedValue == 2) {
         cellPerRow = 5;
     }
-    return selectedValue;
+    return cellPerRow;
 }
 // 
 // 
@@ -43,15 +43,17 @@ function getSelectValue() {
 var play = document.getElementById("play");
 var playAgain = document.getElementById("play-again");
 // difficulty
-var difficulty = getSelectValue();
+// var difficulty = getSelectValue();
 // cell per row
-var cellPerRow;
+var cellPerRow = getSelectValue();
 // fieldId
 var fieldId = document.getElementById("minefield");
 // cells
-var cells = cellPerRow * cellPerRow;
+var cells = 0;
 // cellClass
 var cellClass = "cell";
+// bombs
+var bombs = [];
 // rowClass
 var rowClass = "row";
 //  class added
@@ -63,21 +65,22 @@ var cellIndex = [];
 for(let i=0; i<cells; i++) {
     cellIndex.push(i +1);
 }
-// bombs
-var bombs = [];
-while (bombs.length < 16) {
-    var bombN = getRndInteger(1, cells);
-    if(bombs.includes(bombN) == false) {
-        bombs.push(bombN);
-    }
-}
-console.log("bombs", bombs);
 // *
 // *play event
 // *
 play.addEventListener("click",
     function() {
         // *Campo minato
+        console.log(cellPerRow);
+        cells = cellPerRow * cellPerRow;
+        while (bombs.length < 16) {
+            var bombN = getRndInteger(1, cells);
+            if(bombs.includes(bombN) == false) {
+                bombs.push(bombN);
+            }
+        }
+        console.log(cells);
+        console.log("bombs", bombs);
         createMinefield(cellPerRow, fieldId, cellClass, rowClass);
         document.getElementById("difficulty-form").classList.add("display--none");
         document.getElementById("wrapper-minefield").classList.add("display--block");
@@ -96,7 +99,6 @@ function() {
 // * evento click
 // *
 celle = document.getElementsByClassName("cell-n");
-console.log(celle);
 var validNumb = [];
 fieldId.addEventListener("click", 
     function(event) {
@@ -105,12 +107,15 @@ fieldId.addEventListener("click",
         if(bombs.includes(numClicked)) {
             document.getElementById("endId").classList.add("display--block");
             document.getElementById("end-game__message").innerHTML = "Hai perso"; 
-            event.target.disabled = true;
-            for(let i = 0; i<cells; i++) {
-                if(bombs.includes(i + 1)) {
-                    celle[i].classList.add(addClassYellow);
+            // event.target.disabled = true;
+            for(let i = 1; i<=cells; i++) {
+                if(bombs.includes(i)) {
+                    console.log(celle[i]);
+                    console.log(i);
+                    celle[i - 1].classList.add(addClassYellow);
                 }
-            }           
+            }             
+
         } else if (validNumb.includes(numClicked)) {
             event.target.disabled = true;
             alert("Attenzione hai già cliccato su questa cella");
