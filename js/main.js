@@ -3,12 +3,12 @@
 // * stabiliti la classe css delle celle "cellClass".
 // * Al click l'aspetto delle celle varia in base alla clasae "addClassToCell"
 // *
-function createMinefield(cellNumb, getFieldId, cellClass, addClassToCell) {
+function createMinefield(cellNumb, getFieldId, getcellClass, getRowClass) {
     var n = 1;
     for (let i = 0; i< cellNumb; i++) {
-        getFieldId.innerHTML += `<div class="row"></div>`;
+        getFieldId.innerHTML += `<div class=${getRowClass}></div>`;
         for (let j = 1; j<= cellNumb; j++) {        
-            document.getElementsByClassName("row")[i].innerHTML += `<div class=${cellClass}><span class="cell-n">${n}</span></div>`;
+            document.getElementsByClassName(getRowClass)[i].innerHTML += `<div class=${getcellClass}><span class="cell-n">${n}</span></div>`;
             n++;
         }  
     }   
@@ -42,6 +42,8 @@ var fieldId = document.getElementById("minefield");
 var cellClass = "cell";
 // cells
 var cells = cellPerRow * cellPerRow;
+// rowClass
+var rowClass = "row";
 //  class added
 var addClassToCell = "bg--red";
 //  class added
@@ -53,69 +55,49 @@ for(let i=0; i<cells; i++) {
 }
 // bombs
 var bombs = [];
-for(let i=0; i<16; i++) {
-    do {
-        var bombN = getRndInteger(1, cells);
-    } while (bombs.includes(bombN));
-    bombs.push(bombN);
+while (bombs.length < 16) {
+    var bombN = getRndInteger(1, cells);
+    if(bombs.includes(bombN) == false) {
+        bombs.push(bombN);
+    }
 }
+// for(let i=0; i<16; i++) {
+// }
 console.log("bombs", bombs);
 // *
 // *Campo minato
 // *
-createMinefield(cellPerRow, fieldId, cellClass, addClassToCell);
+createMinefield(cellPerRow, fieldId, cellClass, rowClass);
 // *
 // * evento click
 // *
 celle = document.getElementsByClassName("cell-n");
-// score
-var score = 0;
-// clicked
-var clicked = [];
-for(let i=0; i< cells; i++) {
-    clicked.push(0);
-}
-for (let i=0; i< cells; i++) {
-    celle[i].addEventListener("click",
-        function(event) {
-            if(bombs.includes(i)) {
-                // -
-                // -
-                // -
-                // -
-                if(confirm("Hai perso! Ritenta")){
-                    window.location.reload();  
-                }
-                // -
-                // -
-                // -
-                // -
-            } else if (score == (cells - 16 - 1)) {
-                                // -
-                // -
-                // -
-                // -
-                celle[i].classList.add(addClassToCell);
-                alert("Hai vinto")
-                // -
-                // -
-                // -
-                // -
-            } else {
-                celle[i].classList.add(addClassToCell);
-            }
+var validNumb = [];
+fieldId.addEventListener("click", 
+    function(event) {
+        // clicked.push(event.target.innerHTML);
+        var numClicked = parseInt(event.target.innerHTML);
+        if(bombs.includes(numClicked)) {
+            // for(let i = 0; i<cells; i++) {
+            //     if(bombs.includes(i + 1)) {
+            //         celle[i].classList.add(addClassYellow);
+            //     }
+            // }            
+            alert(`Hai perso! Hai totalizzato un punteggio di ` + validNumb.length);
+            window.location.reload();
+        } else if (validNumb.includes(numClicked)) {
+            event.target.disabled = true;
+            alert("Attenzione hai già cliccato su questa cella");
 
-            // cliccando 2 volte sulla cella il punteggio non viene incrementato
-            clicked[i]++;
-            if(clicked[i]>=2) {
-                celle[i].disabled = true;
-                // score = score;
-                // alert("Attenzione non è possibile cliccare due volte sulla stessa cella");
-            } else {
-                score++;
+        } else {
+            event.target.classList.add(addClassToCell);
+            validNumb.push(numClicked);
+            if(validNumb.length == (cells - bombs.length)) {
+                event.target.classList.add(addClassToCell);
+                alert("Hai vinto");
+                window.location.reload();  
             }
-            console.log("score", score);
         }
-        );
-}
+    }
+);
 
