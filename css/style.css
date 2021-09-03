@@ -5,20 +5,20 @@
     box-sizing: border-box;
 }
 /* common */
-.wrapper {
-    display: flex;
-    align-items: center;
-    height: 100vh;
+.wrapper{
+    display: none; 
+    width: 100%;
 }
 
 /* field */
 #minefield {
-    display: flex;
     width: 40%;
+    display: flex;
     margin: auto;
     flex-wrap: wrap;
     background-color: green;
 }
+
 
 .row {
     width: 100%;
@@ -44,6 +44,9 @@
     width: 100%;
     height: 100%;
 }
+.end {
+    display: none;
+}
 
 /* Add properties */
 .bg--red {
@@ -52,4 +55,16 @@
 
 .bg--yellow {
     background-color: yellow;
+}
+
+.display--none {
+    display: none;
+}
+
+.display--flex {
+    display: flex;
+}
+
+.display--block {
+    display: block;
 }

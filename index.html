@@ -8,9 +8,27 @@
         <title>Minefield</title>
     </head>
     <body>
-        <div class="wrapper">
+        <h1>Minefield</h1>
+        <div class="form" id="difficulty-form">
+            <label for="difficulty">Seleziona il livello di difficoltà</label>
+            <select name="difficulty" id="difficulty" onchange="getSelectValue();">
+                <option value="" hidden>seleziona</option>
+                <option value="0">Facile</option>
+                <option value="1">Medio</option>
+                <option value="2">Difficile</option>
+            </select>
+            <div class="form__btn">
+                <button class="btn" id="play">Play</button>
+            </div>
+        </div>
+        <div class="wrapper" id="wrapper-minefield">
             <div id="minefield">
             </div>
+        </div>
+        <div class="end" id="endId">
+            <div id="end-game__message">
+            </div>
+            <button type="button" class="btn" id="play-again">Play again</button>
         </div>
         <script src="js/main.js"></script>
     </body>

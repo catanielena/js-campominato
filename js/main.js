@@ -19,29 +19,39 @@ function createMinefield(cellNumb, getFieldId, getcellClass, getRowClass) {
 function getRndInteger(min, max) {
     return Math.floor(Math.random() * (max - min + 1) ) + min;
 }
-
-
-// UserInput
-var difficulty = parseInt(prompt(`Indica il grado di difficoltà (0, 1, 2)`));
-// UserInput Control
-while (difficulty<0 || difficulty>2 || isNaN(difficulty)) {
-    difficulty = parseInt(prompt(`Indica il grado di difficoltà (0, 1, 2)`)); 
+// 
+// 
+// *
+// * La funzione restituisce il valore della select "difficulty"
+// *
+function getSelectValue() {
+    var selectedValue = document.getElementById("difficulty").value;
+    if (selectedValue == 0) {
+        cellPerRow = 10;
+    } else if (selectedValue == 1) {
+        cellPerRow = 9;
+    } else if (selectedValue == 2) {
+        cellPerRow = 5;
+    }
+    return selectedValue;
 }
+// 
+// 
+// 
+// 
+// buttons
+var play = document.getElementById("play");
+var playAgain = document.getElementById("play-again");
+// difficulty
+var difficulty = getSelectValue();
+// cell per row
 var cellPerRow;
-if (difficulty == 0) {
-    cellPerRow = 10;
-} else if (difficulty == 1) {
-    cellPerRow = 9;
-} else {
-    cellPerRow = 5;
-}
-
 // fieldId
 var fieldId = document.getElementById("minefield");
-// cellClass
-var cellClass = "cell";
 // cells
 var cells = cellPerRow * cellPerRow;
+// cellClass
+var cellClass = "cell";
 // rowClass
 var rowClass = "row";
 //  class added
@@ -61,30 +71,46 @@ while (bombs.length < 16) {
         bombs.push(bombN);
     }
 }
-// for(let i=0; i<16; i++) {
-// }
 console.log("bombs", bombs);
 // *
-// *Campo minato
+// *play event
 // *
-createMinefield(cellPerRow, fieldId, cellClass, rowClass);
+play.addEventListener("click",
+    function() {
+        // *Campo minato
+        createMinefield(cellPerRow, fieldId, cellClass, rowClass);
+        document.getElementById("difficulty-form").classList.add("display--none");
+        document.getElementById("wrapper-minefield").classList.add("display--block");
+    }
+);
+
+// *
+// *play-again event
+// *
+playAgain.addEventListener("click",
+function() {                
+    location.reload(); 
+}
+);
 // *
 // * evento click
 // *
 celle = document.getElementsByClassName("cell-n");
+console.log(celle);
 var validNumb = [];
 fieldId.addEventListener("click", 
     function(event) {
         // clicked.push(event.target.innerHTML);
         var numClicked = parseInt(event.target.innerHTML);
         if(bombs.includes(numClicked)) {
-            // for(let i = 0; i<cells; i++) {
-            //     if(bombs.includes(i + 1)) {
-            //         celle[i].classList.add(addClassYellow);
-            //     }
-            // }            
-            alert(`Hai perso! Hai totalizzato un punteggio di ` + validNumb.length);
-            window.location.reload();
+            document.getElementById("endId").classList.add("display--block");
+            document.getElementById("end-game__message").innerHTML = "Hai perso"; 
+            event.target.disabled = true;
+            for(let i = 0; i<cells; i++) {
+                if(bombs.includes(i + 1)) {
+                    celle[i].classList.add(addClassYellow);
+                }
+            }           
         } else if (validNumb.includes(numClicked)) {
             event.target.disabled = true;
             alert("Attenzione hai già cliccato su questa cella");
@@ -94,10 +120,10 @@ fieldId.addEventListener("click",
             validNumb.push(numClicked);
             if(validNumb.length == (cells - bombs.length)) {
                 event.target.classList.add(addClassToCell);
-                alert("Hai vinto");
-                window.location.reload();  
+                // alert("Hai vinto");
+                document.getElementById("endId").classList.add("display--block");
+                document.getElementById("end-game__message").innerHTML = "Hai vinto"; 
             }
         }
     }
 );
-
