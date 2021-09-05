@@ -5,18 +5,116 @@
     box-sizing: border-box;
 }
 /* common */
+body {
+    font-family: "CircularStd-Book";
+    background-color: pink;
+}
+
+input, select {
+    font-family: "CircularStd-Book";
+    font-size: 2rem;
+}
+
+select {
+/* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#ffbedd+29,ffbedd+61,ffffff+100 */
+background: rgb(255,190,221); /* Old browsers */
+background: -moz-linear-gradient(top,  rgba(255,190,221,1) 29%, rgba(255,190,221,1) 61%, rgba(255,255,255,1) 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top,  rgba(255,190,221,1) 29%,rgba(255,190,221,1) 61%,rgba(255,255,255,1) 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom,  rgba(255,190,221,1) 29%,rgba(255,190,221,1) 61%,rgba(255,255,255,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffbedd', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
+    padding: .1rem .3rem;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+
+
+    }
+/* font */
+@font-face {
+    font-family: "outward-block";
+    src: url(../font/outward-block.ttf);
+}
+
+@font-face {
+    font-family: "CircularStd-Book";
+    src: url(../font/CircularStd-Book.otf);
+}
+
+h1 {
+    font-family: "outward-block";
+    font-size: 60rem;
+    font-weight: 300;
+    text-align: center;
+    padding-top: 10rem;
+    color: rgb(99, 226, 40);
+}
+
+/* button */
+
+button {
+    font-family: "CircularStd-Book";
+}
+
+.btn {
+    font-size: 3rem;
+    font-size: 3rem;
+    padding: .4rem;
+    border-width: 0px;
+    border-style: none;
+    border: none;
+    background-color: pink;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+/* title */
+.title {
+    display: flex;
+    position: absolute;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+
+
+
+/* form */
+.form {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100vh;
+    font-size: 2rem;
+}
+
+.form__item {
+    padding: .6rem;
+}
+
+.form__btn {
+    margin-top: 2rem;
+}
+/* field */
 .wrapper{
     display: none; 
     width: 100%;
 }
 
-/* field */
 #minefield {
     width: 40%;
     display: flex;
     margin: auto;
     flex-wrap: wrap;
-    background-color: green;
+    height: 100vh;
+    align-items: center;
+    align-content: center;
 }
 
 
@@ -27,8 +125,11 @@
 
 .cell {
     position: relative;
-    border: 1px solid;
+    box-shadow: inset 0 0 0.5rem #fff;
     flex-grow: 1;    
+    cursor: pointer;
+    background-image: url(../img/flower.png);
+    background-size: cover;
 }
 
 .cell::after {
@@ -39,23 +140,49 @@
 
 .cell > span{
     font-size: 1.5rem;
-    display: block;
     position: absolute;
     width: 100%;
     height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
+
+/* end */
 .end {
     display: none;
+    position: absolute;
+    top: 0;
+    font-size: 3rem;
+}
+
+.end > * {
+    width: 30%;
+    text-align: center;
+}
+
+#play-again {
+    box-shadow: inset 0 0 0.75rem #000;
+    background-color: #fff;
 }
 
 /* Add properties */
 .bg--red {
     background-color: red;
+    background-image: url(../img/bomb.png);
+    background-size: cover;
+    color: #fff;
 }
 
 .bg--yellow {
-    background-color: yellow;
+    box-shadow: inset 0 0 0.3rem #000;
+    background-color: #fff;
+    border-radius: 50%;
+    position: relative;
+    background-image: url(../img/flower1.png);
+    background-size: cover;
 }
+
 
 .display--none {
     display: none;
@@ -67,4 +194,92 @@
 
 .display--block {
     display: block;
+}
+
+.display--flex-end {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+}
+
+@media screen and (max-width: 768px) {
+    h1 {
+        font-size: 30rem;
+        padding-top: 4.5rem;
+        transform: scaleY(2);
+    }
+    
+    .form, select {
+        font-size: 3rem;
+    }
+
+    .btn {
+        font-size: 6rem;
+    }
+
+    #minefield {
+        width: 70%;
+    }
+
+    .display--flex-end {
+        flex-direction: column;
+    }
+
+    .end {
+        font-size: 2rem;
+    }
+
+    .end > * {
+        padding: 2rem 0;
+    }
+
+    .end__btn {
+        padding: 4rem 0;
+    }
+
+    #play-again {
+        font-size: 2rem;
+    }
+}
+@media screen and (max-width: 425px) {
+    h1 {
+        font-size: 15rem;
+        padding-top: 2.5rem;
+        transform: scaleY(3);
+    }
+    
+    .form, select {
+        font-size: 2rem;
+    }
+
+    .btn {
+        font-size: 4rem;
+    }
+
+    #minefield {
+        width: 100%;
+    }
+
+    .display--flex-end {
+        flex-direction: column;
+    }
+
+    .end {
+        font-size: 1.5rem;
+    }
+
+    .end > * {
+        padding: 1rem 0;
+        width: 100%;
+    }
+
+    .end__btn {
+        padding: 3rem 0;
+    }
+
+    #play-again {
+        font-size: 1.5rem;
+    }
 }

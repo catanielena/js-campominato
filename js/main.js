@@ -105,14 +105,14 @@ fieldId.addEventListener("click",
         // clicked.push(event.target.innerHTML);
         var numClicked = parseInt(event.target.innerHTML);
         if(bombs.includes(numClicked)) {
-            document.getElementById("endId").classList.add("display--block");
-            document.getElementById("end-game__message").innerHTML = "Hai perso"; 
+            document.getElementById("endId").classList.add("display--flex-end");
+            document.getElementById("end-game__message").innerHTML = `(⌯˃̶᷄ ﹏ ˂̶᷄⌯)ﾟ <br> "Hai perso" <br> (⌯˃̶᷄ ﹏ ˂̶᷄⌯)ﾟ`; 
             // event.target.disabled = true;
             for(let i = 1; i<=cells; i++) {
                 if(bombs.includes(i)) {
                     console.log(celle[i]);
                     console.log(i);
-                    celle[i - 1].classList.add(addClassYellow);
+                    celle[i - 1].classList.add(addClassToCell);
                 }
             }             
 
@@ -121,13 +121,13 @@ fieldId.addEventListener("click",
             alert("Attenzione hai già cliccato su questa cella");
 
         } else {
-            event.target.classList.add(addClassToCell);
+            event.target.classList.add(addClassYellow);
             validNumb.push(numClicked);
             if(validNumb.length == (cells - bombs.length)) {
                 event.target.classList.add(addClassToCell);
                 // alert("Hai vinto");
-                document.getElementById("endId").classList.add("display--block");
-                document.getElementById("end-game__message").innerHTML = "Hai vinto"; 
+                document.getElementById("endId").classList.add("display--flex-end");
+                document.getElementById("end-game__message").innerHTML = `	╭( ･ㅂ･)و ̑̑ ＂ <br> ̑̑ "Hai vinto" ╭( ･ㅂ･)و ̑̑ ＂<br>`; 
             }
         }
     }
