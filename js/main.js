@@ -19,8 +19,6 @@ function createMinefield(cellNumb, getFieldId, getcellClass, getRowClass) {
 function getRndInteger(min, max) {
     return Math.floor(Math.random() * (max - min + 1) ) + min;
 }
-// 
-// 
 // *
 // * La funzione restituisce il valore della select "difficulty"
 // *
@@ -42,8 +40,6 @@ function getSelectValue() {
 // buttons
 var play = document.getElementById("play");
 var playAgain = document.getElementById("play-again");
-// difficulty
-// var difficulty = getSelectValue();
 // cell per row
 var cellPerRow = getSelectValue();
 // fieldId
@@ -65,6 +61,7 @@ var cellIndex = [];
 for(let i=0; i<cells; i++) {
     cellIndex.push(i +1);
 }
+
 // *
 // *play event
 // *
@@ -106,7 +103,7 @@ fieldId.addEventListener("click",
         var numClicked = parseInt(event.target.innerHTML);
         if(bombs.includes(numClicked)) {
             document.getElementById("endId").classList.add("display--flex-end");
-            document.getElementById("end-game__message").innerHTML = `(⌯˃̶᷄ ﹏ ˂̶᷄⌯)ﾟ <br> "Hai perso" <br> (⌯˃̶᷄ ﹏ ˂̶᷄⌯)ﾟ`; 
+            document.getElementById("end-game__message").innerHTML = `"Hai perso! <br> Il tuo punteggio è di ${validNumb.length}" <br> (⌯˃̶᷄ ﹏ ˂̶᷄⌯)ﾟ`; 
             // event.target.disabled = true;
             for(let i = 1; i<=cells; i++) {
                 if(bombs.includes(i)) {
